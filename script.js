@@ -1,55 +1,38 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const tg = window.Telegram.WebApp;
-  tg.ready();
-
-  const userInfo = tg.initDataUnsafe?.user || {};
-  const username = userInfo.username || "неизвестно";
-  const userId = userInfo.id || "неизвестен";
-  const fullName = userInfo.first_name + (userInfo.last_name ? " " + userInfo.last_name : "");
-
-  document.getElementById("status").innerHTML =
-    `<p>👤 Telegram: <strong>@${username}</strong><br>🆔 ID: <strong>${userId}</strong><br>🛒 Заказов ранее: <strong>1</strong></p>`;
-
-  document.getElementById("orderForm").addEventListener("submit", async function(e) {
+window.onload = function () {
+  document.getElementById("orderForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const formData = new FormData(this);
-    const order = {
-      name: formData.get("name"),
-      projectType: formData.get("projectType"),
-      details: formData.get("details"),
-      telegram: "@" + username,
-      id: userId,
-      fullName: fullName
-    };
+    const name = document.getElementById("name").value;
+    const tg = document.getElementById("telegram").value;
+    const message = document.getElementById("message").value;
 
-    const message = `🆕 Новый заказ Web App:
+    const botToken = "123456789:ABCdefGhIjKlMnOpQRstUvWxYZ"; // ?? ?????? ???? ?????
+    const chatId = 123456789; // ?? ?????? ???? chat_id
 
-👤 Имя: ${order.name}
-📦 Проект: ${order.projectType}
-📝 Детали: ${order.details}
-
-💬 Telegram: ${order.telegram}
-🆔 ID: ${order.id}
+    const text = `
+?? ????? ????? Web App:
+?? ???: ${name}
+?? Telegram: ${tg}
+?? ?????????: ${message}
 `;
 
-    try {
-      const botToken = "8038364790:AAFwzeQ2rY-Q0S9Ir1g0b5rG6fLs_tNEjck"; // ЗАМЕНИ на токен своего бота
-      const chatId = "@krelani"; // или числовой ID
-
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message
-        })
-      });
-
-      document.getElementById("status").innerText = "✅ Заявка успешно отправлена!";
-      tg.close();
-    } catch (err) {
-      document.getElementById("status").innerText = "❌ Ошибка: " + err.message;
-    }
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: text
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert("? ????? ?????????!");
+    })
+    .catch(err => {
+      console.error("?????? ??? ????????:", err);
+      alert("? ?????? ??? ????????.");
+    });
   });
-});
+};
