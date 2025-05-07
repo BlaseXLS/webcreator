@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Создайте Telegram Web App мечты</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Создайте Telegram Web App мечты</h1>
+    <p class="subtitle">Мини-приложение в Telegram, которое работает как полноценный сайт или сервис. Уникально. Стильно. Быстро.</p>
+    <div class="features">
+      <div>🚀 Запускается в Telegram без установки</div>
+      <div>🎯 Настроено под вашу задачу (заказы, заявки, каталог и т.д.)</div>
+      <div>⚡ Загружается мгновенно</div>
+      <div>💼 Увеличивает доверие и продажи</div>
+      <div>📱 Работает на любом телефоне и ПК</div>
+    </div>
+    <form id="orderForm">
+      <h2>Оставьте заявку — и мы сделаем всё!</h2>
+      <input type="text" name="name" placeholder="Ваше имя" required />
+      <input type="text" name="projectType" placeholder="Что нужно? (каталог, заказ, лендинг...)" required />
+      <textarea name="details" placeholder="Расскажите, что вам нужно — чем подробнее, тем лучше" required></textarea>
+      <button type="submit">🚀 Получить Web App</button>
+    </form>
+    <div id="status"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
